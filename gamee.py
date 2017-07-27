@@ -30,7 +30,7 @@ clock = pygame.time.Clock()
 
 img_dir = path.join(path.dirname(__file__), "SpaceShooterRedux")
 player_img = pygame.image.load("kappa.png").convert()
-mob_img = pygame.image.load("ufoRed.png").convert()
+mob_img = pygame.image.load("SMOrc.png").convert()
 bullet_img = pygame.image.load("kappa.png").convert()
 
 #Classes
@@ -39,6 +39,8 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = player_img
+        self.image = pygame.transform.scale(player_img, (50, 50))
+        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.centerx = (WIDTH/2)
         self.rect.bottom = (HEIGHT - 10)
@@ -64,6 +66,8 @@ class mob(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = mob_img
+        self.image = pygame.transform.scale(mob_img, (30, 30))
+        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(WIDTH - self.rect.width)
         self.rect.y = random.randrange(-100, -40)
@@ -82,6 +86,8 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = bullet_img
+        self.image = pygame.transform.scale(bullet_img, (10, 10))
+        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.bottom = y
         self.rect.centerx = x
@@ -127,7 +133,7 @@ while running:
     if hits:
         running = False
     #Render
-    screen.fill(BLACK)
+    screen.fill(WHITE)
     all_sprites.draw(screen)
     #After Drawing, flip so user can see
     pygame.display.flip()
