@@ -66,7 +66,7 @@ class mob(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = mob_img
-        self.image = pygame.transform.scale(mob_img, (30, 30))
+        self.image = pygame.transform.scale(mob_img, (80, 80))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(WIDTH - self.rect.width)
