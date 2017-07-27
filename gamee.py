@@ -10,7 +10,7 @@ WIDTH = 640
 HEIGHT = 480
 FPS = 60
 
-#Common colours and images
+#Common colours
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -18,9 +18,19 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
+#Init Pygame
+
+pygame.init()
+pygame.mixer.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Kappa")
+clock = pygame.time.Clock()
+
+#Images
+
 img_dir = path.join(path.dirname(__file__), "SpaceShooterRedux")
 player_img = pygame.image.load("kappa.png").convert()
-mob_img = pygame.image.load("ufored.png").convert()
+mob_img = pygame.image.load("ufoRed.png").convert()
 bullet_img = pygame.image.load("kappa.png").convert()
 
 #Classes
@@ -82,12 +92,7 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.bottom < 0:
             self.kill() 
         
-# Initialize Pygame
-pygame.init()
-pygame.mixer.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Kappa")
-clock = pygame.time.Clock()
+# Initialize Pygame 2
 
 all_sprites = pygame.sprite.Group()
 player = Player()
