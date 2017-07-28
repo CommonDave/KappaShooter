@@ -86,7 +86,7 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = bullet_img
-        self.image = pygame.transform.scale(bullet_img, (10, 10))
+        self.image = pygame.transform.scale(bullet_img, (20, 20))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.bottom = y
@@ -97,7 +97,16 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y += self.speedy
         if self.rect.bottom < 0:
             self.kill() 
-        
+
+font_name = pygame.font.match_font("Comic Sans MS")
+
+def draw_text(surf, text, size, x, y):
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, BLACK)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x, y)
+    surf.blit(text_surface, text_rect)
+
 # Initialize Pygame 2
 
 all_sprites = pygame.sprite.Group()
@@ -109,6 +118,8 @@ for i in range(8):
     m = mob()
     all_sprites.add(m)
     mobs.add(m)
+
+score  = 0
 
 #Game Loop
 
@@ -122,10 +133,12 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 player.shoot()
+
 #Updates
     all_sprites.update()
     hits = pygame.sprite.groupcollide(mobs, bullets, True, True)
     for hit in hits:
+        score += 10
         m = mob()
         all_sprites.add(m)
         mobs.add(m)
@@ -135,6 +148,7 @@ while running:
     #Render
     screen.fill(WHITE)
     all_sprites.draw(screen)
+    draw_text(screen, str(score), 20, WIDTH/2, 5)
     #After Drawing, flip so user can see
     pygame.display.flip()
 pygame.quit()
